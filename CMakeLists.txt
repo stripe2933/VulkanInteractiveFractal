@@ -27,7 +27,6 @@ include(${CMAKE_BINARY_DIR}/CPM.cmake)
 
 add_subdirectory(vkbase)
 set(VKUTIL_USE_GLFW_WINDOW ON)
-set(glm_SOURCE_DIR /Users/stripe2933/.vcpkg-clion/vcpkg/installed/arm64-osx/include) # TODO: hard-coded path.
 add_subdirectory(vkutil)
 
 # Enable Dynamic dispatch loader in VulkanHppModule.
