@@ -1,0 +1,30 @@
+#version 460
+
+layout (set = 0, binding = 0, rgba8) uniform writeonly image2D outputImage;
+
+layout (local_size_x = 16, local_size_y = 16) in;
+
+layout (push_constant, std430) uniform PushConstants {
+    vec4 bound; // xy: lower bound, zw: upper bound
+    vec2 c;
+    uint max_iterations;
+} push_constants;
+
+void main(){
+    uvec2 outputImageSize = imageSize(outputImage);
+    if (gl_GlobalInvocationID.x >= outputImageSize.x || gl_GlobalInvocationID.y >= outputImageSize.y){
+        return;
+    }
+
+    vec2 z = mix(push_constants.bound.xy, push_constants.bound.zw, vec2(gl_GlobalInvocationID.xy) / vec2(outputImageSize));
+    uint iter_count = 0;
+    for (; iter_count < push_constants.max_iterations; ++iter_count){
+        z = vec2(z.x * z.x - z.y * z.y, 2 * z.x * z.y) + push_constants.c;
+        if (length(z) > 2){
+            break;
+        }
+    }
+
+    vec3 color = vec3(float(iter_count) / push_constants.max_iterations);
+    imageStore(outputImage, ivec2(gl_GlobalInvocationID.xy), vec4(color, 1.0));
+}
