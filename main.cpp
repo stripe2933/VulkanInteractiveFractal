@@ -5,7 +5,6 @@
 
 import std;
 import glm;
-import glm_formatter;
 import vk_mem_alloc_hpp;
 import vkbase;
 import vkutil;
