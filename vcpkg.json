@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    {
+      "name": "glm",
+      "version>=": "1.0.0"
+    },
+    "glfw3",
+    "vulkan-memory-allocator"
+  ]
+}
