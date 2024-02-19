@@ -10,15 +10,15 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: Use Visual Studio devenv
-        uses: seanmiddleditch/gha-setup-vsdevenv@master
-
       - name: Prepare Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
         with:
           vulkan-query-version: latest
           vulkan-components: Vulkan-Headers, Vulkan-Loader
           vulkan-use-cache: true
+          
+      - name: Use Visual Studio devenv
+        uses: seanmiddleditch/gha-setup-vsdevenv@master
 
       - name: configure
         run: |
